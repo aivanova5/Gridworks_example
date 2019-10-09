@@ -17,7 +17,7 @@ module tape;
 module residential{
 	implicit_enduses REFRIGERATOR|LIGHTS|PLUGS|WATERHEATER|RANGE|DRYER|CLOTHESWASHER|FREEZER|MICROWAVE|DISHWASHER;
 	paneldump_interval 3600;
-	paneldump_filename "paneldump_test.csv";
+	paneldump_filename "output/paneldump_test.csv";
 //	implicit_enduse_source RBSA2014_DISCRETE;
 }
 
@@ -38,7 +38,7 @@ object triplex_meter {
 		thermal_integrity_level GOOD;	
 		object recorder {
 			property "panel";
-			file "panel_rec.csv";
+			file "output/panel_rec.csv";
 			interval -1;
 		};
 	}; 
