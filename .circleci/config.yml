@@ -7,6 +7,10 @@ jobs:
     steps: 
       - checkout 
       - run: 
+          name: Create output folder
+          command: |
+            mkdir output
+      - run: 
           name: Run version check
           command: |
             gridlabd --version
