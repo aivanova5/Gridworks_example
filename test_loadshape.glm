@@ -1,0 +1,45 @@
+clock {
+	timezone "US/CA/Los Angeles";
+	starttime "2018-01-20T00:00:00-08:00";
+	stoptime "2018-01-21T00:00:00-08:00";
+}
+#set randomseed=5 
+#set minimum_timestep=60
+module climate;
+object climate {
+        name weather;
+        tmyfile "CA-San_Jose_Intl_Ap.tmy3";
+        interpolate QUADRATIC;
+}
+
+module powerflow;
+module tape;
+module residential{
+	implicit_enduses REFRIGERATOR|LIGHTS|PLUGS|WATERHEATER|RANGE|DRYER|CLOTHESWASHER|FREEZER|MICROWAVE|DISHWASHER;
+	paneldump_interval 3600;
+	paneldump_filename "paneldump_test.csv";
+//	implicit_enduse_source RBSA2014_DISCRETE;
+}
+
+object triplex_meter { 
+	name meter_1;
+	phases AS;
+	nominal_voltage 120;
+	object house { 
+		name house_1;
+		groupid group_houses;
+		floor_area random.triangle(1000,1500);
+		cooling_setpoint 76 degF;
+		heating_setpoint 65 degF;
+		hvac_power_factor 0.75;
+		cooling_system_type HEAT_PUMP;	
+		heating_system_type HEAT_PUMP;
+		thermal_integrity_level VERY_GOOD;
+		thermal_integrity_level GOOD;	
+		object recorder {
+			property "panel";
+			file "panel_rec.csv";
+			interval -1;
+		};
+	}; 
+}
