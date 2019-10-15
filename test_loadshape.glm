@@ -37,7 +37,7 @@ object triplex_meter {
 		thermal_integrity_level VERY_GOOD;
 		thermal_integrity_level GOOD;	
 		object recorder {
-			property "panel";
+			property "hvac_load";
 			file "output/panel_rec.csv";
 			interval -1;
 		};
