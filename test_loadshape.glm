@@ -20,13 +20,43 @@ module residential{
 	paneldump_filename "output/paneldump_test.csv";
 //	implicit_enduse_source RBSA2014_DISCRETE;
 }
+object meter{
+	name main_node; 
+	nominal_voltage 2401 V; 
+	phases AN;
+}
 
-object triplex_meter { 
-	name meter_1;
+object transformer_configuration {
+	name xfmr_config_A;
+	connect_type SINGLE_PHASE_CENTER_TAPPED;
+	install_type POLETOP;
+	powerA_rating 1000;
+	primary_voltage 2401;
+	secondary_voltage 120.000 V;
+	impedance 0.006+0.0136j;
+}
+
+object transformer {
+	name xfrm_A;
 	phases AS;
+	from main_node;
+	to tf_node;
+	configuration xfmr_config_A;
+}
+object triplex_node {
+	name tf_node; 
+	phases AS; 
+	nominal_voltage 120 V; 
+}
+global int32 SEQ_CUSTID 0;
+
+object triplex_meter:..10 { 
+	name `meter_{SEQ_CUSTID:INC}`;
+	phases AS;
+	parent tf_node;
 	nominal_voltage 120;
 	object house { 
-		name house_1;
+		name `house_{SEQ_CUSTID}`;
 		groupid group_houses;
 		floor_area random.triangle(1000,1500);
 		cooling_setpoint 60 degF;
@@ -37,9 +67,21 @@ object triplex_meter {
 		thermal_integrity_level VERY_GOOD;
 		thermal_integrity_level GOOD;	
 		object recorder {
+			file `output/house_hvac_load_{SEQ_CUSTID}.csv`;
 			property "hvac_load";
-			file "output/panel_rec.csv";
-			interval -1;
+			interval  3600;
 		};
 	}; 
 }
+
+// Collects and aggregates the hvac_load
+object collector {
+	name collector_HVAC;
+	group class=house;
+	property sum(hvac_load[kW]);
+	file "output/load_HVAC.csv";
+	interval -1; // collects output everytime the value changes 
+	flush 0;
+}
+
+//#on_exit 0 python3 post_process.py
