@@ -71,11 +71,11 @@ object triplex_meter:..10 {
 		heating_system_type HEAT_PUMP;
 		thermal_integrity_level VERY_GOOD;
 		thermal_integrity_level GOOD;	
-		object recorder {
-			file `output/house_hvac_load_{SEQ_CUSTID}.csv`;
-			property "hvac_load";
-			interval  3600;
-		};
+//		object recorder {
+//			file `output/house_hvac_load_{SEQ_CUSTID}.csv`;
+//			property "hvac_load";
+//			interval  3600;
+//		};
 	}; 
 }
 
@@ -89,4 +89,9 @@ object collector {
 	flush 0;
 }
 
-//#on_exit 0 python3 post_process.py
+// Distinct value for hvac load recording 
+object group_recorder{
+	group "class=house";
+	property "hvac_load";
+	file "output/hvac_load_per_house.csv";
+}
