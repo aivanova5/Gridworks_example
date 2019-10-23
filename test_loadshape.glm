@@ -104,7 +104,7 @@ object group_recorder{
 }
 object group_recorder{
 	group "class=triplex_meter";
-	property measured_real_power;
+	property measured_real_energy[kWh];
 	file "output/total_load_per_house.csv";
 	interval 3600;
 
