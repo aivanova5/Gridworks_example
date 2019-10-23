@@ -63,6 +63,7 @@ object triplex_meter:..10 {
 	phases AS;
 	parent tf_node;
 	nominal_voltage 120;
+	measured_real_energy_delta 3600;
 	object house { 
 		name `house_{SEQ_CUSTID}`;
 		groupid group_houses;
