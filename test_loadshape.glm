@@ -14,7 +14,7 @@ object climate {
 
 module powerflow;
 module tape{
-	line_units NONE;
+
 }
 module residential{
 	implicit_enduses REFRIGERATOR|LIGHTS|PLUGS|WATERHEATER|RANGE|DRYER|CLOTHESWASHER|FREEZER|MICROWAVE|DISHWASHER;
@@ -106,4 +106,5 @@ object group_recorder{
 	property measured_real_power;
 	file "output/total_load_per_house.csv";
 	interval 3600;
+	line_units NONE;
 }
