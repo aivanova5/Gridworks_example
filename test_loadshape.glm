@@ -108,6 +108,6 @@ object group_recorder{
 	//property measured_real_energy;
 	//property measured_real_power;
 	file "output/total_load_per_house.csv";
-	interval 3600;
+	interval -1;
 
 }
