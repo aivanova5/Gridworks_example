@@ -30,6 +30,7 @@ object meter{
 		file "output/main_node.csv";
 		interval -1; 
 		property measured_real_power[kW], measured_reactive_power[kW];
+		line_units NONE;
 	};
 }
 
@@ -106,5 +107,5 @@ object group_recorder{
 	property measured_real_power;
 	file "output/total_load_per_house.csv";
 	interval 3600;
-	line_units NONE;
+
 }
