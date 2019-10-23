@@ -97,9 +97,11 @@ object group_recorder{
 	group "class=house";
 	property "hvac_load";
 	file "output/hvac_load_per_house.csv";
+	interval 3600;
 }
 object group_recorder{
 	group "class=triplex_meter";
-	property measured_real_power;
+	property measured_real_power[kW];
 	file "output/total_load_per_house.csv";
+	interval 3600;
 }
